@@ -17,7 +17,6 @@ const numberSong = $(".number-song");
 const PLAYER_SETTING = "1999Music";
 const realTimeSong = $(".real-time");
 const APIMUSIC = "https://612f3ec55fc50700175f1514.mockapi.io/songs";
-
 // eslint-disable-next-line no-unused-vars
 let songsElement = null;
 
@@ -26,7 +25,7 @@ const app = {
   currentIndex: 0,
   isPlaying: false,
   isRepeat: false,
-  isRamdom: false,
+  isRandom: false,
   idsPlayed: [],
   config: JSON.parse(localStorage.getItem(PLAYER_SETTING)) || {},
 
@@ -41,8 +40,6 @@ const app = {
       .then((response) => response.json())
       .then(callback)
       .catch(() => {
-        // eslint-disable-next-line no-console
-        console.log("Fail connect to API");
         document.body.innerHTML = `<h1 style="text-align: center; margin-top: 100px;">Fail connect to API</h1>`;
       });
   },
@@ -57,12 +54,17 @@ const app = {
     this.handleEvents();
   },
 
+  updateNumberSong() {
+    numberSong.innerHTML = `${this.songs.length} <i class="fa fa-music" aria-hidden="true"></i>`;
+  },
+
   // Render List Song
   renderSongs() {
+    // updata number song
+    this.updateNumberSong();
+
     // render pohan dashboard
     // render list
-
-    numberSong.innerHTML = `${this.songs.length}<i class="fad fa-music-alt"></i>`;
     const htmls = this.songs.map(
       (song) => `
       <div class="song" data-id="${song.id}">
@@ -86,6 +88,8 @@ const app = {
   },
 
   // no se kieu nhu nay get currentSong (){ //define function}
+  // define property cuurentSong (no se get ra cuurent Song)
+
   defineProperties() {
     Object.defineProperty(this, "currentSong", {
       get() {
@@ -96,18 +100,19 @@ const app = {
 
   loadConfig() {
     this.currentIndex = this.config.currentIndex || 0;
-    this.isRamdom = this.config.isRamdom || false;
+    this.isRandom = this.config.isRandom || false;
     this.isRepeat = this.config.isRepeat || false;
   },
   handleActionAfterLoadConfig() {
     // setting loop song
     audio.loop = this.isRepeat;
     // settig toggle button play
-    randomBtn.classList.toggle("active", this.isRamdom);
+    randomBtn.classList.toggle("active", this.isRandom);
     repeatBtn.classList.toggle("active", this.isRepeat);
 
     // playing , current time reload app (F5)
     audio.currentTime = this.config.currentTime || 0;
+    // audio.volume = 100;
   },
 
   renderTimeSong() {
@@ -138,16 +143,11 @@ const app = {
   },
   // scroll to address song choice
   scrollToActiveSong() {
-    if (this.currentIndex <= (this.songs * 1) / 5) {
-      $(".song.active").scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-    } else
-      $(".song.active").scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
+    // if (this.currentIndex <= (this.songs * 1) / 5) {
+    $(".song.active").scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
   },
   // next and prev song
   nextSong() {
@@ -241,7 +241,7 @@ const app = {
 
     // event of button next
     nextBtn.onclick = () => {
-      if (this.isRamdom) this.randomSong();
+      if (this.isRandom) this.randomSong();
       else this.nextSong();
       audio.play();
       // set local
@@ -251,7 +251,7 @@ const app = {
 
     // event of button prev
     prevBtn.onclick = () => {
-      if (this.isRamdom) this.randomSong();
+      if (this.isRandom) this.randomSong();
       else this.prevSong();
       audio.play();
       this.setConfig("currentIndex", this.currentIndex);
@@ -268,9 +268,9 @@ const app = {
 
     // event of the button random
     randomBtn.onclick = () => {
-      this.isRamdom = !this.isRamdom;
-      randomBtn.classList.toggle("active", this.isRamdom);
-      this.setConfig("isRamdom", this.isRamdom);
+      this.isRandom = !this.isRandom;
+      randomBtn.classList.toggle("active", this.isRandom);
+      this.setConfig("isRandom", this.isRandom);
     };
 
     // auto next song
@@ -297,7 +297,6 @@ const app = {
 
   // Run App
   run() {
-    // define property cuurentSong (no se get ra cuurent Song)
     this.getSongs(this.handleGetSongs.bind(this));
   },
 };

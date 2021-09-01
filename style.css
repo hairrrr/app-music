@@ -45,9 +45,9 @@ body {
 }
 .player .dashboard header .number-song {
   position: absolute;
-  bottom: 20px;
-  right: 15px;
-  font-size: 12px;
+  bottom: 17px;
+  right: 18px;
+  font-size: 13px;
   font-family: monospace;
   color: hotpink;
 }
@@ -58,15 +58,31 @@ body {
   letter-spacing: 1.2px;
   text-transform: capitalize;
   font-weight: 900;
-  height: 70px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+@media screen and (max-width:437px) {
+  .player .dashboard header h1 {
+    height: 130px !important
+  }
+  .player .playlist {
+    margin-top: 645px !important;
+  }
+
+  .player .dashboard .control {
+    margin-top: px !important;
+  }
+
+  .player .dashboard .cd-thumb {
+    margin-bottom: 25px !important;
+  }
+}
 .player .dashboard .cd {
-  width: 250px;
-  height: 250px;
+  width: 260px;
+  height: 20px;
   margin: 0 auto;
 }
 
@@ -150,7 +166,7 @@ body {
 }
 
 .player .playlist {
-  margin: 570px 0px 0px 0px;
+  margin: 595px 0px 0px 0px;
   padding: 20px 15px 50px 15px;
   background-color: var(--icon-color);
 }
@@ -192,6 +208,7 @@ body {
   border-radius: 50%;
   margin-right: 20px;
   box-shadow: 0px 0px 9px #888888;
+  flex-shrink: 0;
 }
 
 .player .playlist .song .body .title {
@@ -212,6 +229,7 @@ body {
 
 .player .playlist .song .option {
   margin-left: auto;
+  padding-left: 5px;
   color: var(--icon-color);
 }
 
@@ -229,7 +247,7 @@ footer {
   font-size: 15px;
   font-family: monospace;
   padding: 20px 0;
-  margin-left: -25px;
+  margin-left: -23px;
   font-weight: 900;
 }
 
