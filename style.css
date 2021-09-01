@@ -50,7 +50,14 @@ body {
   font-size: 13px;
   font-family: monospace;
   color: hotpink;
+  font-weight: bolder;
 }
+
+.player .dashboard header .number-song > i {
+  position: relative;
+  left: -4px
+}
+
 .player .dashboard header h1 {
   color: var(--text-color);
   margin: 7px 0;
@@ -258,3 +265,4 @@ footer {
 .played .icon-play {
   display: none !important;
 }
+
