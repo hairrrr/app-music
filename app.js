@@ -45,13 +45,21 @@ const app = {
   },
 
   handleGetSongs(data) {
-    this.songs = data;
-    this.defineProperties();
-    this.renderSongs();
-    this.loadConfig();
-    this.renderCurrentSong();
-    this.handleActionAfterLoadConfig();
-    this.handleEvents();
+    try {
+      this.songs = data;
+      this.defineProperties();
+      this.renderSongs();
+      this.loadConfig();
+      this.renderCurrentSong();
+      this.handleActionAfterLoadConfig();
+      this.handleEvents();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+     
+
+    
   },
 
   updateNumberSong() {
